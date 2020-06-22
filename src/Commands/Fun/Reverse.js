@@ -17,10 +17,9 @@ module.exports = class extends Command {
         });
     }
     async run(message, args) {
-        let rev = args.join(" ").split("").reverse().join("")
         let embed = new MessageEmbed()
             .setColor(this.client.config.color)
-            .setDescription(`\`${rev}\``)
+            .setDescription(`\`${await this.client.utils.toReverse(args.join(" "))}\``)
             .setAuthor(`${message.author.tag} Reversed A Text`, message.author.displayAvatarURL())
         message.channel.send(embed)
     }

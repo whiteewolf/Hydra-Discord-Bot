@@ -35,7 +35,7 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ['si', 'server'],
             name: 'serverinfo',
-            category: 'Utilities',
+            category: 'Infomation',
             description: ['Shows the server info'],
             disabled: false,
             clientPerms: [],

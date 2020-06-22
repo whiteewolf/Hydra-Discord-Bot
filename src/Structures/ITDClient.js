@@ -32,7 +32,6 @@ module.exports = class ITDClient extends Client {
 				browser: "Discord Android"
 			})
 		})
-		setInterval(this.utils.postStats, 3e5)
 		this.on('error', error => {
 			console.error('The WebSocket encountered an error:', error);
 		});

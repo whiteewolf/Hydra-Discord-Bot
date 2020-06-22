@@ -66,6 +66,16 @@ module.exports = class Util {
 			if (res.status !== 200) return console.info("[Vultrex API] Responded with status code not equal to 200")
 		}).catch(err => console.error(`[Vultrex API] ${err}`))
 	}
+	formatBytes(bytes) {
+		if (bytes == 0) return '0 Bytes';
+		const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+		const i = Math.floor(Math.log(bytes) / Math.log(1024));
+		return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${sizes[i]}`
+	}
+	async toReverse(str) {
+		if (!str) return str = 'No text provided';
+		return str.split("").reverse().join("");
+	}
 	toProperCase(string) {
 		return string.split(' ').map(str => str.slice(0, 1).toUpperCase() + str.slice(1)).join(" ")
 	}

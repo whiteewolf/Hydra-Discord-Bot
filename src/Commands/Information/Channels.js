@@ -8,7 +8,7 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ['channelsmap', 'mapchannels', 'chmap'],
             name: 'channels',
-            category: 'Information',
+            category: 'Infomation',
             description: ['Maps all the guild channels with their ID'],
             disabled: false,
             clientPerms: [],

@@ -23,7 +23,7 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ['userinfo'],
             name: 'whois',
-            category: 'Utilities',
+            category: 'Infomation',
             description: ['Shows the selected member info'],
             disabled: false,
             clientPerms: [],

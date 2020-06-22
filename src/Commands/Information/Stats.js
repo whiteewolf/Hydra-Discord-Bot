@@ -2,8 +2,11 @@ const Command = require('../../Structures/Command');
 const ms = require('ms');
 const {
     MessageEmbed,
-    version
+    version: djs
 } = require('discord.js')
+const {
+    version
+} = require("../../package.json")
 const os = require("os")
 const cpuStat = require("cpu-stat")
 module.exports = class extends Command {
@@ -11,7 +14,7 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ['botinfo', 'bi'],
             name: "stats",
-            category: "Utilities",
+            category: "Infomation",
             disabled: false,
             clientPerms: [],
             userPerms: [],
@@ -24,20 +27,27 @@ module.exports = class extends Command {
         let embedStats = new MessageEmbed()
             // .setAuthor(this.client.user.username)
             .setTitle("__**Stats:**__")
-            .setColor("#1f3a93")
-            .addField("Memory Usage", `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} / ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`, true)
-            .addField("Uptime ", `${ms(this.client.uptime, {long: true})}`, true)
-            .addField("Users", `${this.client.users.cache.size}`, true)
-            .addField("Servers", `${this.client.guilds.cache.size}`, true)
-            .addField("Channels ", `${this.client.channels.cache.size}`, true)
-            .addField("Discord.js", `v${version}`, true)
-            .addField("Node", `${process.version}`, true)
-            .addField("Developers", this.client.config.developer, true)
-            .addField("Admins", this.client.config.admins, true)
-            .addField("CPU", `\`\`\`md\n${os.cpus().map(i => `${i.model}`)[0]}\`\`\``)
-            .addField("Arch", `\`${os.arch()}\``, true)
-            .addField("Platform", `\`\`${this.client.utils.toProperCase(os.platform())}\`\``, true)
-            .addField("API Latency", `${(this.client.ws.ping)}ms`, true)
+            .setColor("BLUE")
+            .addField('**General**', [
+                `**Commands:** ${this.client.commands.size}`,
+                `**Users:** ${this.client.users.cache.size}`,
+                `**Servers:** ${this.client.guilds.cache.size}`,
+                `**Channels:** ${this.client.channels.cache.size}`,
+                `**NodeJS:** ${process.version}`,
+                `**Version:** ${version}`,
+                `**Discord.JS:** ${djs}`,
+                `**Client:** ${this.client.user.tag} (${this.client.user.id})`,
+                '\u200b'
+
+            ], true)
+            .addField('**System**', [
+                `**Platform:** ${this.client.utils.toProperCase(process.platform)}`,
+                `**Uptime:** ${ms(os.uptime() * 1000, {long: true})}`,
+                `**Memory:**`,
+                `\u3000 **Usage:** ${this.client.utils.formatBytes(process.memoryUsage().heapUsed)}`,
+                `\u3000 **Total:** ${this.client.utils.formatBytes(process.memoryUsage().heapTotal)}`,
+
+            ], true)
             .setFooter(this.client.config["config"].copyright)
         message.channel.send(embedStats)
     }
