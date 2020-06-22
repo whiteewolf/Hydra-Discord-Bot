@@ -17,7 +17,7 @@ module.exports = class extends Command {
         });
     }
     async run(message, args) {
-        let ch = message.guild.channels.cache.map(x => x.name + " :: " + x.id).join("\n");
+        let ch = message.guild.channels.cache.filter(f => f.type !== 'voice').map(x => `\`${x.name + " :: " + x.id}\``).join("\n");
         let embed = new MessageEmbed()
             .setColor(this.client.config.color)
             .setDescription(ch)

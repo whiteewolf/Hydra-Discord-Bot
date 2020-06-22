@@ -16,19 +16,25 @@ module.exports = class extends Command {
             clientPerms: [],
             userPerms: [],
             owner: false,
-                rateLimit: 3,
-                cooldown: 30000
+            rateLimit: 3,
+            cooldown: 30000
         });
     }
     async run(message, args) {
         let e = new MessageEmbed()
+            .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setColor(this.client.config.color)
+            .setThumbnail(this.client.user.displayAvatarURL())
+            .setDescription(`Prefix in \`${message.guild.name}\` is ${this.client.config.prefix}\nCommands arguments:\n\`<>\` => required\n\`[]\` => optional`)
             .setFooter(this.client.config["config"].copyright)
         if (!args[0]) {
             const cat = readdirSync("./Commands/")
             cat.forEach(categories => {
                 let directory = this.client.commands.filter(c => c.category === categories)
-                let capitalise = categories.slice(0, 1).toUpperCase() + categories.slice(1)
+                if (message.author.id !== this.client.config.developerid) {
+                    directory.filter(c => c.category != "Developer")
+                }
+                let capitalise = this.client.utils.toProperCase(categories)
                 e.addField(`[${directory.size}] - ${capitalise}`, directory.map(x => `\`${x.name}\``).join(", "))
             })
             message.channel.send(e)

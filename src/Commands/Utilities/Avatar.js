@@ -23,7 +23,7 @@ module.exports = class extends Command {
             .setTitle(member.user.tag)
             .setImage(member.user.displayAvatarURL({
                 dynamic: true,
-                size: 2048
+                size: 4096
             }))
             .setFooter(this.client.config["config"].copyright))
     }
