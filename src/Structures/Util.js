@@ -42,7 +42,7 @@ module.exports = class Util {
 		});
 	}
 	getStats() {
-		const req = fetch(`https://api.vultrex.io/v3/bot/${this.client.user.id}/stats`, {
+		const req = fetch(`https://api.vultrex.io/v3/bot/719472403356450816/stats`, {
 			headers: {
 				"Authorization": "7d8a4768dde40ecb20e275bbe3d8ac5cc6d1e3eb6b1e5f91d16ad689e927c97b97ffd55c8cc8fff0"
 			}
@@ -52,7 +52,7 @@ module.exports = class Util {
 		return res;
 	}
 	postStats() {
-		fetch(`https://api.vultrex.io/v3/bot/${this.client.user.id}/stats`, {
+		fetch(`https://api.vultrex.io/v3/bot/719472403356450816/stats`, {
 			method: "POST",
 			headers: {
 				"Authorization": "7d8a4768dde40ecb20e275bbe3d8ac5cc6d1e3eb6b1e5f91d16ad689e927c97b97ffd55c8cc8fff0",
