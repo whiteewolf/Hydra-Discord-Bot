@@ -26,7 +26,7 @@ module.exports = class extends Command {
             .setColor(this.client.config.color)
             .setThumbnail(this.client.user.displayAvatarURL())
             .setDescription(`Prefix in \`${message.guild.name}\` is ${this.client.config.prefix}\nCommands arguments:\n\`<>\` => required\n\`[]\` => optional`)
-            .setFooter(this.client.config["config"].copyright)
+            .setFooter(`${this.client.config["config"].copyright} | Commands: ${this.client.commands.size}`, this.client.user.displayAvatarURL())
         if (!args[0]) {
             const cat = readdirSync("./Commands/")
             cat.forEach(categories => {
@@ -49,6 +49,7 @@ module.exports = class extends Command {
                     `Aliases: ${command.aliases.join(", ")}`,
 
                 ], true)
+                .addField('\u200b', '\u200b', true)
                 .addField('Requirements', [
                     `Client Permissions: ${command.clientPerms}`,
                     `Member Permissions: ${command.userPerms}`,

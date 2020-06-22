@@ -18,7 +18,7 @@ module.exports = class extends Command {
     }
     async run(message, args) {
         let member = message.mentions.members.first() || this.client.users.cache.get(args[0]) || message.member;
-        let vot = this.client.utils.getVotes()
+        let vot = this.client.utils.getStats()
         let m = new MessageEmbed()
             .setColor(this.client.config.color)
             .setDescription(`Is someone voted for ${this.client.user.username}? ${vot.includes(member.id) ? `${member.user.tag} Yes` : `${member.user.tag} No`}`)

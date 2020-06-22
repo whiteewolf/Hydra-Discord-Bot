@@ -8,7 +8,7 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ['channelsmap', 'mapchannels', 'chmap'],
             name: 'channels',
-            category: 'Infomation',
+            category: 'Information',
             description: ['Maps all the guild channels with their ID'],
             disabled: false,
             clientPerms: [],
@@ -21,6 +21,6 @@ module.exports = class extends Command {
         let embed = new MessageEmbed()
             .setColor(this.client.config.color)
             .setDescription(ch)
-        message.channel.send(embed)
+        message.channel.send(`idk come later for channels   `)
     }
 };

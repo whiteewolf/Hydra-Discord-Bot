@@ -7,7 +7,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: ['dsize', "sized"],
-            name: ['dicsize'],
+            name: 'dicsize',
             category: "Fun",
             description: [''],
             disabled: false,

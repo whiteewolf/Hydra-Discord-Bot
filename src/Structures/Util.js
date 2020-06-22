@@ -76,6 +76,9 @@ module.exports = class Util {
 		if (!str) return str = 'No text provided';
 		return str.split("").reverse().join("");
 	}
+	toBetterCase(str) {
+		return str.replace(/_/g, " ").toLowerCase().replace(/\b(\w)/g, char => char.toUpperCase())
+	}
 	toProperCase(string) {
 		return string.split(' ').map(str => str.slice(0, 1).toUpperCase() + str.slice(1)).join(" ")
 	}

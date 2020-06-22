@@ -5,10 +5,12 @@ const {
 } = require('discord.js');
 const Util = require('./Util.js');
 const config = require('../config.json')
-// const db = require("quick.db")
 const {
 	token
 } = require("./BotToken");
+const {
+	VultrexDB
+} = require("vultrex.db")
 const fetch = require("node-fetch")
 const Constants = require("discord.js/src/util/Constants")
 Constants.DefaultOptions.ws.properties.$browser = 'Discord Android'
@@ -18,7 +20,7 @@ module.exports = class ITDClient extends Client {
 		super({
 			disableMentions: 'everyone'
 		});
-		// this.db = db;
+		// this.db = db
 		this.validate(options);
 		this.commands = new Collection();
 		this.snipes = new Map();
