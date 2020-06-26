@@ -44,10 +44,11 @@ module.exports = class extends Command {
             .addField(`Deaths`, `\`${Number(json.deaths).toString().replace(NUMBER_REGEX, "$1,")}\``, true)
             .addField(`Deaths Today`, `\`${Number(json.todayDeaths).toString().replace(NUMBER_REGEX, "$1,")}\``, true)
             .addField(`Recovered`, `\`${Number(json.recovered).toString().replace(NUMBER_REGEX, "$1,")}\``, true)
-            .addField(`Tests`, `\`${Number(json.tests).toString().replace(NUMBER_REGEX, "$1")}\``, true)
+            .addField(`Tests`, `\`${Number(json.tests).toLocaleString().replace(NUMBER_REGEX, "$1")}\``, true)
             .addField(`Updated as of`, `${new Date(json.updated).toLocaleDateString("en-US", dateOptions)}`, true)
+            .addField(`Continent:`, `${json.continent}`, true)
             .setFooter(this.client.config["config"].copyright)
-        console.log(json)
+        // console.log(json)
 
         return message.channel.send({
             embed

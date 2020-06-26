@@ -30,6 +30,7 @@ module.exports = class extends Command {
             .setTitle("__**Stats:**__")
             .setColor("BLUE")
             .addField('**General**', [
+                `**Client:** ${this.client.user.tag}\n(${this.client.user.id})`,
                 `**Commands:** ${this.client.commands.size}`,
                 `**Users:** ${this.client.users.cache.size}`,
                 `**Servers:** ${this.client.guilds.cache.size}`,
@@ -37,13 +38,12 @@ module.exports = class extends Command {
                 `**NodeJS:** ${process.version}`,
                 `**Version:** ${version}`,
                 `**Discord.JS:** ${djs}`,
-                `**Client:** ${this.client.user.tag} (${this.client.user.id})`,
                 `**Client Uptime:** ${ms(this.client.uptime, {long: true})}`,
                 '\u200b'
 
             ], true)
             .addField('**System**', [
-                `\u3000 **Platform:** ${this.client.utils.toProperCase(process.platform)}`,
+                `   \u3000**Platform:** ${this.client.utils.toProperCase(process.platform)}`,
                 `\u3000 **Uptime:** ${ms(os.uptime() * 1000, {long: true})}`,
                 `**Memory:**`,
                 `\u3000 **Usage:** ${this.client.utils.formatBytes(process.memoryUsage().heapUsed)}`,

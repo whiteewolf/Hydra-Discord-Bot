@@ -25,7 +25,7 @@ module.exports = class extends Command {
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setColor(this.client.config.color)
             .setThumbnail(this.client.user.displayAvatarURL())
-            .setDescription(`Prefix in \`${message.guild.name}\` is ${this.client.config.prefix}\nCommands arguments:\n\`<>\` => required\n\`[]\` => optional`)
+            .setDescription(`Prefix in \`${message.guild.name}\` is ${this.client.config.prefix}`)
             .setFooter(`${this.client.config["config"].copyright} | Commands: ${this.client.commands.size}`, this.client.user.displayAvatarURL())
         if (!args[0]) {
             const cat = readdirSync("./Commands/")
@@ -35,7 +35,7 @@ module.exports = class extends Command {
                     directory.filter(c => c.category != "Developer")
                 }
                 let capitalise = this.client.utils.toProperCase(categories)
-                e.addField(`[${directory.size}] - ${capitalise}`, directory.map(x => `\`${x.name}\``).join(", "))
+                e.addField(`- ${capitalise}: (<${directory.size}>)`, directory.map(x => `\`${x.name}\``).join(", "))
             })
             message.channel.send(e)
         } else {
@@ -45,9 +45,9 @@ module.exports = class extends Command {
             let e2 = new MessageEmbed()
                 .addField('General', [
                     `Name: ${command.name}`,
-                    `Description: ${command.description.join(", ")}`,
+                    `Description: ${command.description}`,
                     `Aliases: ${command.aliases.join(", ")}`,
-
+                    `Usage: ${command.usage}`,
                 ], true)
                 .addField('\u200b', '\u200b', true)
                 .addField('Requirements', [

@@ -21,7 +21,7 @@ module.exports = class extends Command {
         let vot = this.client.utils.getStats()
         let m = new MessageEmbed()
             .setColor(this.client.config.color)
-            .setDescription(`Is someone voted for ${this.client.user.username}? ${vot.includes(member.id) ? `${member.user.tag} Yes` : `${member.user.tag} No`}`)
+            .setDescription(`Is ${member.user.tag} voted for ${this.client.user.username}? ${vot.includes(member.id) ? `Yes` : `No`}`)
         message.channel.send(m)
     }
 };

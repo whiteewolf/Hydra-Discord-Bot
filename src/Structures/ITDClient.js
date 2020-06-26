@@ -8,9 +8,6 @@ const config = require('../config.json')
 const {
 	token
 } = require("./BotToken");
-const {
-	VultrexDB
-} = require("vultrex.db")
 const fetch = require("node-fetch")
 const Constants = require("discord.js/src/util/Constants")
 Constants.DefaultOptions.ws.properties.$browser = 'Discord Android'
@@ -27,12 +24,13 @@ module.exports = class ITDClient extends Client {
 		this.aliases = new Collection();
 		this.utils = new Util(this);
 		this.config = config;
-		this.once('ready', () => {
-			console.log(`Logged in as ${this.user.username}!`);
+		this.on('ready', () => {
+			console.log(`Logged in as ${this.user.tag}!\nCommands: ${this.commands.size}\nPrefix: ${this.prefix}\nServers: ${this.guilds.cache.size}\nUsers: ${this.users.cache.size}`);
 			this.user.setActivity(`${this.config.prefix}help`, {
 				type: 'WATCHING',
 				browser: "Discord Android"
 			})
+			// setInterval(this.utils.postStats, 3e5)
 		})
 		this.on('error', error => {
 			console.error('The WebSocket encountered an error:', error);
@@ -41,7 +39,7 @@ module.exports = class ITDClient extends Client {
 			const mentionRegex = RegExp(`^<@!${this.user.id}>$`);
 			const mentionRegexPrefix = RegExp(`^<@!${this.user.id}> `);
 			if (!message.guild || message.author.bot) return;
-			if (message.content.match(mentionRegex)) message.channel.send(`My prefix for ${message.guild.name} is \`${this.prefix}\``);
+			if (message.content.match(mentionRegex)) message.channel.send(new MessageEmbed().setColor(this.config.color).setDescription(`My prefix for \`${message.guild.name}\` is \`${this.prefix}\`\nType: \`${this.prefix}help\` for all commands of the bot`));
 			const prefix = message.content.match(mentionRegexPrefix) ?
 				message.content.match(mentionRegexPrefix)[0] : this.prefix;
 			if (!message.content.startsWith(this.prefix)) return;
@@ -52,16 +50,16 @@ module.exports = class ITDClient extends Client {
 				command.owner &&
 				!this.config.developerid.includes(message.author.id)
 			) {
-				return message.channel.send(new MessageEmbed().setTitle("Access Denied", message.author.displayAvatarURL()).setColor(this.config.denied).setFooter(this.config["config"].copyright).setDescription(`Sorry, you are not ${this.config.developer} to use this command`))
+				return message.channel.send(new MessageEmbed().setTitle("Access Denied", message.author.displayAvatarURL()).setColor(this.config.denied).setFooter(this.config["config"].copyright).setDescription(`Sorry, you are not ${this.users.cache.get(this.config.developerid).tag} to use this command`))
 			}
-			let result = this.missingPerms(message.member, command.userPerms);
+			let result = this.utils.missingPerms(message.member, command.userPerms);
 			if (
 				command.userPerms &&
 				!message.member.permissions.has(command.userPerms) &&
 				!this.config.developerid.includes(message.author.id)
 			)
 				return message.channel.send(new MessageEmbed().setTitle("Access Denied", message.author.displayAvatarURL()).setColor(this.config.denied).setFooter(this.config["config"].copyright).setDescription(`You dont have ${result} permissions...`))
-			result = this.missingPerms(message.guild.me, command.clientPerms);
+			result = this.utils.missingPerms(message.guild.me, command.clientPerms);
 			if (
 				command.clientPerms &&
 				!message.guild.me.permissions.has(command.clientPerms) &&
@@ -73,15 +71,6 @@ module.exports = class ITDClient extends Client {
 			}
 		});
 	}
-	missingPerms = (member, perms) => {
-		const missingPerms = member.permissions
-			.missing(perms)
-			.map(str => `\`${str.replace(/_/g, " ").toLowerCase().replace(/\b(\w)/g, char => char.toUpperCase())}\``);
-
-		return missingPerms.length > 1 ?
-			`${missingPerms.slice(0, -1).join(", ")} and ${missingPerms.slice(-1)[0]}` :
-			missingPerms[0];
-	};
 	validate(options) {
 		if (typeof options !== 'object') throw new TypeError('Options should be a type of Object.');
 
@@ -92,7 +81,6 @@ module.exports = class ITDClient extends Client {
 		if (typeof options.prefix !== 'string') throw new TypeError('Prefix should be a type of String.');
 		this.prefix = options.prefix;
 	}
-
 	async start() {
 		this.utils.loadCommands();
 		super.login(token);

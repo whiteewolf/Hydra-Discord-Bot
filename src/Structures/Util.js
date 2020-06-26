@@ -5,6 +5,10 @@ const {
 const glob = promisify(require('glob'));
 const Command = require('./Command.js');
 const fetch = require("node-fetch")
+const {
+	VultrexClient
+} = require('vultrex.api');
+const vultrex = new VultrexClient('7d8a4768dde40ecb20e275bbe3d8ac5cc6d1e3eb6b1e5f91d16ad689e927c97b97ffd55c8cc8fff0', '719472403356450816');
 module.exports = class Util {
 
 	constructor(client) {
@@ -42,29 +46,11 @@ module.exports = class Util {
 		});
 	}
 	getStats() {
-		const req = fetch(`https://api.vultrex.io/v3/bot/719472403356450816/stats`, {
-			headers: {
-				"Authorization": "7d8a4768dde40ecb20e275bbe3d8ac5cc6d1e3eb6b1e5f91d16ad689e927c97b97ffd55c8cc8fff0"
-			}
-		})
-		if (req.status !== 200) return [];
-		const res = req.json()
-		return res;
+		vultrex.getVotes('719472403356450816').then(console.log);
 	}
 	postStats() {
-		fetch(`https://api.vultrex.io/v3/bot/719472403356450816/stats`, {
-			method: "POST",
-			headers: {
-				"Authorization": "7d8a4768dde40ecb20e275bbe3d8ac5cc6d1e3eb6b1e5f91d16ad689e927c97b97ffd55c8cc8fff0",
-				"Content-type": "application/json"
-			},
-			body: JSON.stringify({
-				serverCount: this.client.guilds.cache.size,
-				shardCount: this.client.ws.shards.size
-			})
-		}).then(res => {
-			if (res.status !== 200) return console.info("[Vultrex API] Responded with status code not equal to 200")
-		}).catch(err => console.error(`[Vultrex API] ${err}`))
+		vultrex.post(this.client.guilds.cache.size)
+		vultrex.post(this.client.ws.shards.count)
 	}
 	formatBytes(bytes) {
 		if (bytes == 0) return '0 Bytes';
@@ -85,4 +71,13 @@ module.exports = class Util {
 	async removeDuplicates(arr) {
 		return [...new Set(arr)]
 	}
+	missingPerms = (member, perms) => {
+		const missingPerms = member.permissions
+			.missing(perms)
+			.map(str => `\`${str.replace(/_/g, " ").toLowerCase().replace(/\b(\w)/g, char => char.toUpperCase())}\``);
+
+		return missingPerms.length > 1 ?
+			`${missingPerms.slice(0, -1).join(", ")} and ${missingPerms.slice(-1)[0]}` :
+			missingPerms[0];
+	};
 };

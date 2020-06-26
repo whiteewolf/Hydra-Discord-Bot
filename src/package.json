@@ -5,7 +5,7 @@
   "author": "Shad0w",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^7.0.0",
+    "eslint": "^7.3.1",
     "eslint-config-tesseract": "^0.0.2"
   },
   "dependencies": {

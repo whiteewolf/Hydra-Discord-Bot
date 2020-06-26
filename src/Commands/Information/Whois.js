@@ -60,7 +60,7 @@ module.exports = class extends Command {
             .addField('General Member Information', [
                 `**Joined:**  ${moment(member.joinedTimestamp).format('LT')} ${moment(member.joinedTimestamp).format('LL')} ${moment(member.joinedTimestamp).fromNow()}`,
                 `**Roles:** ${member.roles.cache.filter(f => f.name !== '@everyone').sort((a, b) => b.position - a.position).map(x => x.toString()).join(", ") || "None"}`,
-                `**Boosting Server:** ${moment.utc(member.premiumSince).format("LLLL") || "No"}`,
+                `**Boosting Server:** ${moment(member.premiumSinceTimestamp).format('LLLL') || "No"}`,
                 `**Nickname:** ${member.nickname || "None"}`,
                 '\u200b'
             ], true)
