@@ -49,7 +49,7 @@ module.exports = class extends Command {
         let members = message.guild.members.cache;
         let emojis = message.guild.emojis.cache;
         let roles = message.guild.roles.cache.sort((a, b) => b.position - a.position).first(12).map(role => role.toString());
-        if (roles > 12) roles += `... 12/${message.guild.roles.cache.size}`;
+        if (roles > 12) roles += `... 12 / ${message.guild.roles.cache.size}`;
         let channels = message.guild.channels.cache;
         let em = new MessageEmbed()
             .setColor(this.client.config.color)

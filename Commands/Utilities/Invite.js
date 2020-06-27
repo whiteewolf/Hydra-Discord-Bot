@@ -10,8 +10,8 @@ module.exports = class extends Command {
             name: 'invite',
             category: 'Utilities',
             description: ['Creates an invite for you'],
-            disabled: false,
-            clientPerms: [],
+            disabled: true,
+            clientPerms: ["CREATE_INSTANT_INVITE"],
             userPerms: [],
             owner: false
         });
