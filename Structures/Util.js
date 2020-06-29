@@ -68,7 +68,7 @@ module.exports = class Util {
 	toProperCase(string) {
 		return string.split(' ').map(str => str.slice(0, 1).toUpperCase() + str.slice(1)).join(" ")
 	}
-	async removeDuplicates(arr) {
+	removeDuplicates(arr) {
 		return [...new Set(arr)]
 	}
 	missingPerms = (member, perms) => {
@@ -80,4 +80,17 @@ module.exports = class Util {
 			`${missingPerms.slice(0, -1).join(", ")} and ${missingPerms.slice(-1)[0]}` :
 			missingPerms[0];
 	};
+	async permissionFormat(permissions) {
+		const result = permissions.map(
+			str =>
+			`${str
+          .replace(/_/g, " ")
+          .toLowerCase()
+          .replace(/\b(\w)/g, char => char.toUpperCase())}`
+		);
+
+		return result.length > 1 ?
+			`${result.slice(0, -1).join(", ")} and ${result.slice(-1)[0]}` :
+			result[0];
+	}
 };
