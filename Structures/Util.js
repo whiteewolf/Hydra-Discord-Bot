@@ -6,10 +6,6 @@ const glob = promisify(require('glob'));
 const Command = require('./Command');
 const Event = require("./Event")
 const fetch = require("node-fetch")
-// const {
-// 	APIClient
-// } = require('discordbots.co');
-// const vultrex = new APIClient('45ccb5ee3ad8ad0376dc0deeef65ecdc5bf67bf2e1376ce507ec83e9d31e772537b0e15893e5b400', '719472403356450816')
 module.exports = class Util {
 
 	constructor(client) {
@@ -91,7 +87,7 @@ module.exports = class Util {
 		fetch(`https://infinitybotlist.com/api/bots/${this.client.user.id}`, {
 			method: "POST",
 			headers: {
-				"authorization": "JHGGzCAlptGQFxuMDq2rGY6gbkqMVeAD9pWWEelJOlTQeogKG8iwxj2Lt4Or8gsobHNIPJbXBGb5yEZmh5rr1YPMaUTJbBB8z6X9",
+				"authorization": "",
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
