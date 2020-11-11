@@ -1,14 +1,15 @@
 {
-    "prefix": "s.",
-    "token": "nah nibba",
-    "color": "#1f3a93",
+    "prefix": "h",
+    "token": "NzE5NDcyNDAzMzU2NDUwODE2.Xt365A.fA5Y-1XQhHWqeHznONuy_as54Gk",
+    "color": "#0074d4",
     "developer": "Shad0w#7468",
-    "developerid": "473276250815856650",
+    "developerid": ["473276250815856650", "602656646979911738"],
     "admins": "Crusty#3060",
     "denied": "#cf000f",
     "accepted": "#00b16a",
+    "defaultPerms": ["SEND_MESSAGES", "EMBED_LINKS", "VIEW_CHANNEL"],
     "config": {
-        "copyright": "© ID LTD 2020-2021",
-        "version": "1.0.1"
+        "copyright": "© Hydra Development",
+        "version": "4.0.0"
     }
 }

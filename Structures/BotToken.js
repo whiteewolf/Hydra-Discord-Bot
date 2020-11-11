@@ -1,1 +1,1 @@
-exports.token = ''
+exports.token = 'NzE5NDcyNDAzMzU2NDUwODE2.Xt365A.fA5Y-1XQhHWqeHznONuy_as54Gk'

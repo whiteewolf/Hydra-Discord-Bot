@@ -1,34 +1,27 @@
 const Command = require('../../Structures/Command');
-const moment = require('moment');
+const ms = require('ms');
 const {
     MessageEmbed
 } = require('discord.js')
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
-            aliases: ['ban', `bannish`],
+            aliases: ['ban', "banish"],
             name: 'ban',
             category: 'Moderation',
-            description: ['Bans a member from the server'],
+            description: ['Bans a member'],
             disabled: false,
-            clientPerms: ['BAN_MEMBERS'],
+            clientPerms: ["BAN_MEMBERS", "ADD_REACTIONS"],
             userPerms: ["BAN_MEMBERS"],
             owner: false,
-            rateLimit: 3,
-            cooldown: 30000
+            args: `[member] [reason]`
         });
     }
-    async run(message, args) {
-        let member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-        if (!member) return message.channel.send(new MessageEmbed().setColor(this.client.config.denied).setTitle("Access Denied").setDescription("You didnt mention a member/id to ban"))
-        let reason = args.slice(2).join(" ")
-        if (!reason) return message.channel.send(new MessageEmbed().setColor(this.client.config.denied).setTitle("Access Denied").setDescription("You didnt provide a reason to ban"))
-        let embed = new MessageEmbed()
-            .setAuthor(message.author.tag, message.author.displayAvatarURL())
-            .setDescription(`Successfully banned ${member.user.tag}\nReason: ${reason}\nResponsible Moderator/Admin: ${message.author.tag}\nTime: ${moment(message.createdTimestamp).format('LT')} ${moment(message.createdTimestamp).format('LL')}`)
-            .setColor(this.client.config.color)
-            .setFooter(`Moderation: Ban`)
-            .setTimestamp()
-        message.guild.members.ban(member, reason)
+    async run(message, ...args) {
+        const member = message.mentions.members.first() || message.guild.members.cache.get(args[1]);
+        if (!member) message.reply(`Member not provided`)
+        let reason = args.slice(1).join(" ");
+        message.guild.members.ban(member, reason);
+        message.channel.send(new MessageEmbed().setAuthor(`Action: Ban`, message.guild.iconURL()).setFooter(`Banned by: ${message.author.tag}`))
     }
 };
