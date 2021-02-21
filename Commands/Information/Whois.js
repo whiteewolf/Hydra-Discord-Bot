@@ -52,7 +52,7 @@ module.exports = class extends Command {
                 `**ID:** ${member.user.id}`,
                 `**Flags / Badges:** ${userFlags.map(flag => flags[flag]).join(', ') || "None"}`,
                 `**Created:** ${moment(member.user.createdTimestamp).format('LT')} ${moment(member.user.createdTimestamp).format('LL')} ${moment(member.user.createdTimestamp).fromNow()}`,
-                `**Device:** ${Object.keys(member.presence.clientStatus).map(x => x.replace(/(\b\w)/gi, c => c.toUpperCase())) ? Object.keys(member.presence.clientStatus).map(x => x.replace(/(\b\w)/gi, c => c.toUpperCase())) : "None"}`,
+                `**Device:** ${this.client.utils.toProperCase(Object.keys(member.presence.clientStatus)) ? this.client.utils.toProperCase(Object.keys(member.presence.clientStatus)) : "None"}`,
                 `**Status:** ${st[member.presence.status]}`,
                 `**Bot:** ${member.user.bot ? "Yes" : "No"}`,
                 '\u200b'

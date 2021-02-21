@@ -6,21 +6,22 @@ const {
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
-            aliases: ['channelsmap', 'mapchannels', 'chmap'],
-            name: 'channels',
-            category: 'Information',
-            description: ['Maps all the guild channels with their ID'],
+            aliases: ['servers', 'guilds'],
+            name: 'servers',
+            category: 'Developer',
+            description: ['Maps the servers the bot is in'],
             disabled: false,
             clientPerms: [],
             userPerms: [],
-            owner: false
+            owner: true
         });
     }
     async run(message, args) {
-        let ch = message.guild.channels.cache.filter(f => f.type !== 'voice').map(x => `\`${x.name + " :: " + x.id}\``).join("\n");
+        let guilds = this.client.guilds.cache;
         let embed = new MessageEmbed()
             .setColor(this.client.config.color)
-            .setDescription(ch)
-        message.channel.send(`idk come later for channels   `)
+            .setDescription(`\`\`\`${guilds.map(x => x.name + ' <=> ' + x.memberCount + ' <=> ' + x.id).join("\n")}\`\`\``)
+            .setAuthor(`${guilds.size} Servers`)
+        message.channel.send(embed)
     }
 };

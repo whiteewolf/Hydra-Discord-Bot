@@ -10,20 +10,15 @@ module.exports = class extends Command {
             name: 'invite',
             category: 'Utilities',
             description: ['Creates an invite for you'],
-            disabled: false,
-            clientPerms: [],
+            disabled: true,
+            clientPerms: ["CREATE_INSTANT_INVITE"],
             userPerms: [],
             owner: false
         });
     }
     async run(message, args) {
-        message.channel.createInvite({
-            temporary: true,
-            reason: "Created Invite for a person in the chat"
-        }).then(invite => {
-            message.channel.send(new MessageEmbed()
-                .setColor("BLUE")
-                .setDescription(`Invite Created Successfully\nURL: **${invite.url}**\nCode: **${invite.code}**`))
-        })
+        message.channel.send(new MessageEmbed()
+            .setColor("BLUE")
+            .setDescription(`Invite ${this.client.user.usernam}\n**[Administrator Permissions (bypass every other permission)]()**\n**[All Required Pe]()**`))
     }
 };

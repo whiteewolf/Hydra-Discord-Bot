@@ -7,9 +7,9 @@ module.exports = class Command {
 		this.disabled = options.disabled || false
 		this.description = options.description || 'No description provided.';
 		this.category = options.category || 'Utilities';
-		this.usage = `${this.client.config.prefix}${this.name} ${options.usage}` || 'No usage provided.';
-		this.clientPerms = options.clientPerms || "None";
-		this.userPerms = options.userPerms || "None";
+		this.usage = `${this.client.config.prefix}${this.name} ${options.usage || ' '}`.trim() || 'No usage provided.';
+		this.clientPerms = options.clientPerms || "SEND_MESSAGES";
+		this.userPerms = options.userPerms || "No Required Permissions";
 		this.owner = options.owner || false;
 		// this.reasondis = options.reasondis || "Bugs"
 	}
