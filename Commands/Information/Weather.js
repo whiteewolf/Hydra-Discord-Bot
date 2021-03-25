@@ -9,7 +9,7 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ['weather', 'meteo'],
             name: 'weather',
-            category: 'Fun',
+            category: 'Information',
             description: ['Gives the weather for the current city'],
             disabled: false,
             clientPerms: [],

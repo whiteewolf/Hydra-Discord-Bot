@@ -1,24 +1,33 @@
 {
-  "name": "xenon",
-  "version": "2.0.0x",
+  "name": "hydra",
+  "version": "5.0.0",
   "main": "src/index",
-  "author": "Shad0w",
-  "license": "MIT",
+  "author": "Hydra Development",
+  "license": "HDL",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "devDependencies": {
     "eslint": "^7.3.1",
     "eslint-config-tesseract": "^0.0.2"
   },
   "dependencies": {
+    "@extreme_hero/deeptype": "^1.0.1",
     "chalk": "^4.1.0",
+    "child_process": "^1.0.2",
     "discord.js": "^12.0.0",
+    "discordbots.co": "^1.1.0",
     "figlet": "^1.4.0",
     "geolib": "^3.3.1",
     "glob": "^7.1.6",
+    "mongoose": "^5.10.13",
     "ms": "^2.1.2",
     "path": "^0.12.7",
+    "relevant-urban": "^2.0.0",
+    "sourcebin": "^3.2.5",
     "util": "^0.12.3",
-    "vultrex.api": "^3.3.0",
     "vultrex.haste": "^1.0.1",
     "weather-js": "^2.0.0"
-  }
+  },
+  "badges": []
 }

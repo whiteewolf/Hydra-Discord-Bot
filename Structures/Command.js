@@ -1,3 +1,6 @@
+const {
+	Permissions
+} = require('discord.js');
 module.exports = class Command {
 
 	constructor(client, name, options = {}) {
@@ -6,16 +9,18 @@ module.exports = class Command {
 		this.aliases = options.aliases || [];
 		this.disabled = options.disabled || false
 		this.description = options.description || 'No description provided.';
-		this.category = options.category || 'Utilities';
-		this.usage = `${this.client.config.prefix}${this.name} ${options.usage || ' '}`.trim() || 'No usage provided.';
-		this.clientPerms = options.clientPerms || "SEND_MESSAGES";
-		this.userPerms = options.userPerms || "No Required Permissions";
+		this.category = options.category || 'No Category Set';
+		this.usage = `${options.usage || ' '}`.trim() || 'No usage provided.';
+		this.userPerms = new Permissions(options.userPerms).freeze();
+		this.clientPerms = new Permissions(options.clientPerms).freeze();
+		this.guildOnly = options.guildOnly || true;
 		this.owner = options.owner || false;
-		// this.reasondis = options.reasondis || "Bugs"
+		this.nsfw = options.nsfw || false;
+		this.args = options.args || false;
 	}
 
 	// eslint-disable-next-line no-unused-vars
-	async run(message, args) {
+	async run(_message, _args) {
 		throw new Error(`Command ${this.name} doesn't provide a run method!`);
 	}
 

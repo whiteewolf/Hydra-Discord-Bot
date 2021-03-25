@@ -42,28 +42,40 @@ module.exports = class extends Command {
             offline: "Invisible/Offline"
         }
         const userFlags = member.user.flags.toArray();
-        let embed = new MessageEmbed()
-            .setThumbnail(member.user.displayAvatarURL({
+        // let embed = new MessageEmbed()
+        //     .setThumbnail(member.user.displayAvatarURL({
+        //         dynamic: true
+        //     }))
+        //     .setColor(this.client.config.color)
+        //     .addField('General User Information', [
+        //         `**Username & Tag:** ${member.user.tag}`,
+        //         `**ID:** ${member.user.id}`,
+        //         `**Flags / Badges:** ${userFlags.map(flag => flags[flag]).join(', ') || "None"}`,
+        //         `**Created:** ${moment(member.user.createdTimestamp).format('LT')} ${moment(member.user.createdTimestamp).format('LL')} ${moment(member.user.createdTimestamp).fromNow()}`,
+        //         `**Device:** ${this.client.utils.toProperCase(Object.keys(member.presence.clientStatus)) ? this.client.utils.toProperCase(Object.keys(member.presence.clientStatus)) : "None"}`,
+        //         `**Status:** ${st[member.presence.status]}`,
+        //         `**Bot:** ${member.user.bot ? "Yes" : "No"}`,
+        //         '\u200b'
+        //     ], true)
+        //     .addField('General Member Information', [
+        //         `**Joined:**  ${moment(member.joinedTimestamp).format('LT')} ${moment(member.joinedTimestamp).format('LL')} ${moment(member.joinedTimestamp).fromNow()}`,
+        //         `**Roles:** ${member.roles.cache.filter(f => f.name !== '@everyone').sort((a, b) => b.position - a.position).map(x => x.toString()).join(", ") || "None"}`,
+        //         `**Boosting Server:** ${moment(member.premiumSinceTimestamp).format('LLLL') || "No"}`,
+        //         `**Nickname:** ${member.nickname || "None"}`,
+        //         '\u200b'
+        //     ], true)
+        let embed2 = new MessageEmbed()
+            .setAuthor(`${message.author.username} Info`, message.author.displayAvatarURL({
                 dynamic: true
             }))
-            .setColor(this.client.config.color)
-            .addField('General User Information', [
-                `**Username & Tag:** ${member.user.tag}`,
-                `**ID:** ${member.user.id}`,
-                `**Flags / Badges:** ${userFlags.map(flag => flags[flag]).join(', ') || "None"}`,
-                `**Created:** ${moment(member.user.createdTimestamp).format('LT')} ${moment(member.user.createdTimestamp).format('LL')} ${moment(member.user.createdTimestamp).fromNow()}`,
-                `**Device:** ${this.client.utils.toProperCase(Object.keys(member.presence.clientStatus)) ? this.client.utils.toProperCase(Object.keys(member.presence.clientStatus)) : "None"}`,
-                `**Status:** ${st[member.presence.status]}`,
-                `**Bot:** ${member.user.bot ? "Yes" : "No"}`,
-                '\u200b'
-            ], true)
-            .addField('General Member Information', [
-                `**Joined:**  ${moment(member.joinedTimestamp).format('LT')} ${moment(member.joinedTimestamp).format('LL')} ${moment(member.joinedTimestamp).fromNow()}`,
-                `**Roles:** ${member.roles.cache.filter(f => f.name !== '@everyone').sort((a, b) => b.position - a.position).map(x => x.toString()).join(", ") || "None"}`,
-                `**Boosting Server:** ${moment(member.premiumSinceTimestamp).format('LLLL') || "No"}`,
-                `**Nickname:** ${member.nickname || "None"}`,
-                '\u200b'
-            ], true)
-        message.channel.send(embed)
+            .setColor(member.displayHexColor)
+            .addField(`Username, Tag & ID`, `${member.user.tag} (${member.user.id})`, true)
+            .addField(`Account Created On`, moment(member.user.createdTimestamp).format("LLLL"), true)
+            .addField(`Status`, st[member.presence.status], true)
+            .addField(`Bot`, member.user.bot ? "Yes" : "No", true)
+            .addField(`Joined Server`, moment(member.joinedTimestamp).format("LLLL"), true)
+            .addField(`Nickname`, member.nickame || "None", true)
+            .addField(`Roles`, member.roles.cache.filter(f => f.name !== '@everyone').sort((a, b) => b.position - a.position).map(x => x.toString()).join(", ") || "None")
+        message.channel.send(embed2)
     }
 }
